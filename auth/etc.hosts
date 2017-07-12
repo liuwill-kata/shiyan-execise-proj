@@ -1,0 +1,3 @@
+# 添加下面两行的内容到 /etc/hosts 文件中
+192.30.255.112  github.com
+192.30.255.116  api.github.com
