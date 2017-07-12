@@ -1,0 +1,4 @@
+node_modules
+**/shiyanlou.sqlite
+.ide.vim
+.editorconfig
