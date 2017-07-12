@@ -42,25 +42,26 @@ UserCourse.sync();
 // 插入数据
 // 此处的 user、course及usercourse 都是 promise 对象
 
-Promise.all([User.create({
+User.create({
     name: 'jack'
-}),Course.create({
-    name: 'node.js'
-})]).then((result)=>{
-    var user = result[0]
-    var course = result[1]
+}).then((user)=>{
+    Course.create({
+        name: 'node.js'
+    }).then((course)=>{
+        UserCourse.create({
+            userId: user.id,
+            courseId: course.id,
+            studyTime: 10,
+        }).then(()=>{
+            // 查询学习记录
+            UserCourse.findOne().then(usercourse => {
+                var u = usercourse.userId;
+                var c = usercourse.courseId;
+                var t = usercourse.studyTime;
 
-    UserCourse.create({
-        userId: user.id,
-        courseId: course.id,
-        studyTime: 10,
-    }).then(()=>{
-        UserCourse.findOne().then(usercourse => {
-            var u = usercourse.userId;
-            var c = usercourse.courseId;
-            var t = usercourse.studyTime;
-
-            console.log('学习记录：用户ID %d，课程ID %d，学习时间 %d', u, c, t);
+                console.log('学习记录：用户ID %d，课程ID %d，学习时间 %d', u, c, t);
+            });
         });
-    })
-})
+    });
+});
+
